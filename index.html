@@ -440,6 +440,7 @@
             <div class="container">
                 <div id="pnlMain">
 
+
                     <div class="row">
                         <div class="search-panel col-lg-6 col-md-8 col-xs-12 col-sm-8  col-lg-offset-3 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">
                             <h4>لطفا شماره مرسوله خود را وارد نمایید:</h4>
@@ -457,21 +458,21 @@
                         </div>
                         <script>
                             //Barcode reader function 
-                            document.getElementById("txtbSearch").value = ""
+
                             var btnCopy = document.getElementById("btnCopy");
                             btnCopy.addEventListener("click", function() {
+                                document.getElementById("txtbSearch").value = ""
                                 navigator.clipboard.readText().then(function(text) {
                                     var regex = /\d{24}/g;
                                     var match = text.match(regex);
                                     if (match) {
                                         document.getElementById("txtbSearch").value = match[match.length - 1];
                                     } else {
-                                        document.getElementById("txtbSearch").value = "ابتدا پیامک ارسالی از سوی پست که حاوی کد مرسوله است گپی کنید.";
+                                        document.getElementById("txtbSearch").value = "ابتدا پیامک پست که حاوی کد مرسوله است گپی کنید.";
                                     }
                                 });
                             });
                         </script>
-
 
                         <div class="modal fade col-lg-12 col-md-12 col-xs-12 col-sm-12" id="barcodeModal" tabindex="-1" role="dialog" aria-labelledby="barcodeModalLabel" aria-hidden="true " style="direction:rtl">
                             <div class="modal-dialog">
@@ -512,23 +513,20 @@
                                             target: document.querySelector('#interactive'),
                                             constraints: {
                                                 facingMode: "environment",
-                                                aspectRatio: {
-                                                    min: 1,
-                                                    max: 2
-                                                },
+
                                                 width: {
-                                                    min: 480
+                                                    min: 640
                                                 },
                                                 height: {
-                                                    min: 320
+                                                    min: 480
                                                 }
                                             },
                                         },
                                         decoder: {
-                                            readers: ['code_128_reader', 'ean_reader', 'upc_reader', 'code_39_reader', 'codabar_reader']
+                                            readers: ['code_128_reader']
                                         },
 
-                                        numOfWorkers: 4
+                                        numOfWorkers: 8
                                     }, function(err) {
                                         if (err) {
                                             console.log("Error initializing Quagga", err);
