@@ -442,7 +442,7 @@
 
 
                     <div class="row">
-                        <div class="search-panel col-lg-6 col-md-8 col-xs-12 col-sm-8  col-lg-offset-3 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">
+                        <div class="search-panel col-lg-6 col-md-8 col-xs-12 col-sm-8 col-lg-offset-3 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">
                             <h4>لطفا شماره مرسوله خود را وارد نمایید:</h4>
                             <div style="position: relative">
                                 <input name="txtbSearch" type="text" maxlength="24" id="txtbSearch" class="form-control input-lg" />
@@ -456,23 +456,41 @@
                                 <label id="textcount"></label>
                             </div>
                         </div>
+
+                        <!-- Modal for error message -->
+                        <div id="errorModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">خطا</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>ابتدا پیامک پست که حاوی کد مرسوله است کپی کنید.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <script>
                             //Barcode reader function 
 
                             var btnCopy = document.getElementById("btnCopy");
                             btnCopy.addEventListener("click", function() {
-                                document.getElementById("txtbSearch").value = ""
+                                document.getElementById("txtbSearch").value = "";
                                 navigator.clipboard.readText().then(function(text) {
                                     var regex = /\d{24}/g;
                                     var match = text.match(regex);
                                     if (match) {
                                         document.getElementById("txtbSearch").value = match[match.length - 1];
                                     } else {
-                                        document.getElementById("txtbSearch").value = "ابتدا پیامک پست که حاوی کد مرسوله است گپی کنید.";
+                                        // Show error message in modal
+                                        $('#errorModal').modal('show');
                                     }
                                 });
                             });
                         </script>
+
 
                         <div class="modal fade col-lg-12 col-md-12 col-xs-12 col-sm-12" id="barcodeModal" tabindex="-1" role="dialog" aria-labelledby="barcodeModalLabel" aria-hidden="true " style="direction:rtl">
                             <div class="modal-dialog">
